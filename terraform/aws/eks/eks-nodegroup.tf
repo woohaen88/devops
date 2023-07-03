@@ -1,8 +1,8 @@
 resource "aws_eks_node_group" "test-eks-nodegroup" {
   cluster_name    = aws_eks_cluster.test-eks-cluster.name
-  node_group_name = "test-eks-nodegroup"
+  node_group_name = var.node-name
   node_role_arn   = aws_iam_role.test-iam-role-eks-nodegroup.arn
-  subnet_ids      = ["subnet-0644715719b73254c","subnet-00c8ff1ebad7ad632"]
+  subnet_ids         = [aws_subnet.public-subent-01.id,aws_subnet.public-subnet-02.id]
   instance_types  = ["t3a.medium"]
   disk_size = 20
 

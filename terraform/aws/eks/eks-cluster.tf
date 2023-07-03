@@ -17,7 +17,7 @@ resource "aws_eks_cluster" "test-eks-cluster" {
 
   vpc_config {
     security_group_ids = [aws_security_group.test-sg-eks-cluster.id]
-    subnet_ids         = ["subnet-0644715719b73254c","subnet-00c8ff1ebad7ad632"]
+    subnet_ids         = [aws_subnet.public-subent-01.id,aws_subnet.public-subnet-02.id]
     endpoint_public_access = true
   }
 
