@@ -22,3 +22,16 @@ variable "dynamodb-name" {
   default = "my-ddb-f-lock"
   type = string
 }
+
+# IAM
+# EKS NodeGroup
+variable "iam-nodegroup-name" {
+  default = "test-iam-role-eks-nodegroup"
+  type = string
+}
+
+# EKS Cluster
+variable "iam-cluster-name" {
+  default = "test-iam-role-eks-cluster"
+  type = string
+}

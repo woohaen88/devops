@@ -1,7 +1,7 @@
 ############ eks cluster iam role ############
 
 resource "aws_iam_role" "test-iam-role-eks-cluster" {
-  name = "test-iam-role-eks-cluster"
+  name = var.iam-cluster-name
 
   assume_role_policy = <<POLICY
 {
@@ -33,7 +33,7 @@ resource "aws_iam_role_policy_attachment" "test-iam-policy-eks-cluster-vpc" {
 ############ eks nodegroup iam role ############
 
 resource "aws_iam_role" "test-iam-role-eks-nodegroup" {
-  name = "test-iam-role-eks-nodegroup"
+  name = var.iam-nodegroup-name
 
   assume_role_policy = <<POLICY
 {
