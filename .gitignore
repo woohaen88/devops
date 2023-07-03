@@ -14,3 +14,12 @@ terraform/aws/s3/.terraform.lock.hcl
 terraform/aws/s3/.terraform/*
 
 terraform/aws/eks/.terraform.lock.hcl
+
+terraform/aws/eks/backend/terraform.tfstate
+
+terraform/aws/eks/backend/terraform.tfstate.backup
+
+terraform/aws/eks/backend/.terraform/
+terraform/aws/eks/backend/.terraform/*
+
+terraform/aws/eks/backend/.terraform.lock.hcl
