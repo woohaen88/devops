@@ -1,0 +1,59 @@
+global:
+  hosts:
+    domain: daolcompany.org
+    externalIP: gitlab.daolcompany.org
+
+
+  ingress:
+    apiVersion: ""
+    configureCertmanager: true
+    useNewIngressForCerts: false
+    provider: aws
+    class: alb
+    annotations:
+      alb.ingress.kubernetes.io/group.name: 'gitlab'
+      alb.ingress.kubernetes.io/load-balancer-name: externaldns-gitlab-alb
+      alb.ingress.kubernetes.io/scheme: internet-facing # internet-facing or internal
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}, {"HTTP":80}]'
+      alb.ingress.kubernetes.io/ssl-redirect: "443"
+      alb.ingress.kubernetes.io/success-codes: 200-302
+      alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:ap-northeast-2:381492074864:certificate/16dfef53-2ba9-42a9-89fc-37d62f99fd63
+      external-dns.alpha.kubernetes.io/hostname: gitlab.daolcompany.org
+    enabled: true
+    tls: {}
+    #   enabled: true
+    #   secretName:
+    path: /
+    pathType: Prefix
+
+  kas:
+    enabled: false
+
+nginx-ingress:
+  enabled: false
+
+certmanager-issuer:
+  # The email address to register certificates requested from Let's Encrypt.
+  # Required if using Let's Encrypt.
+  email: woohyeon88@daolcompany.com
+
+gitlab-runner:
+  install: false
+  rbac:
+    create: true
+  runners:
+    locked: false
+    # Set secret to an arbitrary value because the runner chart renders the gitlab-runner.secret template only if it is not empty.
+    # The parent/GitLab chart overrides the template to render the actual secret name.
+    # secret: "nonempty"
+    config: |
+      [[runners]]
+        [runners.kubernetes]
+        image = "ubuntu:22.04"
+  podAnnotations:
+    gitlab.com/prometheus_scrape: "true"
+    gitlab.com/prometheus_port: 9252
+
+postgresql:
+  install: false
